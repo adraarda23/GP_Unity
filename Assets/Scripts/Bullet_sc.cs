@@ -10,7 +10,7 @@ public class Bullet_sc : MonoBehaviour
     }
 
     [SerializeField]
-    float mvSpeed = 10;
+    float mvSpeed = 5;
     void Update()
     {
         transform.Translate(Vector3.up * mvSpeed * Time.deltaTime);
@@ -18,4 +18,11 @@ public class Bullet_sc : MonoBehaviour
         if (transform.position.y > 8)
             Destroy(gameObject);
     }
+
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.tag == "Enemy")
+    //         Destroy(gameObject);
+
+    // }
 }

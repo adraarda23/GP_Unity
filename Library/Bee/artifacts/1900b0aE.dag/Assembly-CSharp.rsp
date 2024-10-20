@@ -353,6 +353,7 @@
 -analyzer:"D:/Unity/Hub/Editor/2022.3.49f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"D:/Unity/Hub/Editor/2022.3.49f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scripts/Bullet_sc.cs"
+"Assets/Scripts/Enemy_sc.cs"
 "Assets/Scripts/Player_sc.cs"
 -langversion:9.0
 /deterministic

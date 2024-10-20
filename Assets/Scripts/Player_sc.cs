@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Script : MonoBehaviour
+public class Player_sc : MonoBehaviour
 {
     void Start()
     {
@@ -17,7 +17,7 @@ public class Script : MonoBehaviour
     }
 
     [SerializeField]
-    float mvSpeed = 5;
+    float mvSpeed = 10;
     void Move()
     {
         float xInput = Input.GetAxis("Horizontal");
@@ -27,9 +27,9 @@ public class Script : MonoBehaviour
             transform.Translate(new Vector3(0, yInput, 0) * mvSpeed * Time.deltaTime);
         else if ((transform.position.x > 10) && (xInput > 0))
             transform.Translate(new Vector3(0, yInput, 0) * mvSpeed * Time.deltaTime);
-        else if ((transform.position.y < -10) && (yInput < 0))
+        else if ((transform.position.y < -5) && (yInput < 0))
             transform.Translate(new Vector3(xInput, 0, 0) * mvSpeed * Time.deltaTime);
-        else if ((transform.position.y > 10) && (yInput > 0))
+        else if ((transform.position.y > 5) && (yInput > 0))
             transform.Translate(new Vector3(xInput, 0, 0) * mvSpeed * Time.deltaTime);
         /*
         else if ((transform.position.x < -10) || (transform.position.x > 10))
@@ -56,5 +56,19 @@ public class Script : MonoBehaviour
             Instantiate(BulletPrefab, transform.position + (new Vector3(0, 1, 0)), Quaternion.identity);
             nextFire = Time.time + fireRate;
         }
+    }
+
+    [SerializeField]
+    int lives = 3;
+
+    public void Damage()
+    {
+        if (lives - 1 > 0)
+        {
+            lives--;
+            transform.position = new Vector3(0, 0, 0);
+        }
+        else
+            Destroy(gameObject);
     }
 }
