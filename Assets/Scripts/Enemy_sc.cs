@@ -22,7 +22,8 @@ public class Enemy_sc : MonoBehaviour
         transform.Translate(Vector3.down * mvSpeed * Time.deltaTime);
 
         if (transform.position.y < -6)
-            Respawn();
+            // Respawn();
+            Destroy(gameObject);
 
         // if (transform.position.y < 0)
         //     Destroy(gameObject);
@@ -33,13 +34,15 @@ public class Enemy_sc : MonoBehaviour
         if (other.tag == "Bullet")
         {
             Destroy(other.gameObject);
-            Respawn();
+            // Respawn();
+            Destroy(gameObject);
         }
         else if (other.tag == "Player")
         {
             Player_sc Player = other.GetComponent<Player_sc>();
             Player.Damage();
-            Respawn();
+            // Respawn();
+            Destroy(gameObject);
         }
     }
 

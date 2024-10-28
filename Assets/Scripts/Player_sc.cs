@@ -63,12 +63,17 @@ public class Player_sc : MonoBehaviour
 
     public void Damage()
     {
-        if (lives - 1 > 0)
+        if (lives > 1)
         {
             lives--;
             transform.position = new Vector3(0, 0, 0);
         }
         else
+        {
+            Spawner_sc Spawner = GameObject.Find("Spawner").GetComponent<Spawner_sc>();;
+            Spawner.stopSpawnerFunc();
+
             Destroy(gameObject);
+        }
     }
 }
