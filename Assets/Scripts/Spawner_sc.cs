@@ -20,13 +20,15 @@ public class Spawner_sc : MonoBehaviour
     [SerializeField]
     bool stopSpawner = false;
 
+    [SerializeField]
+    float spawnRate = 2;
     IEnumerator SpawnRoutine()
     {
         while (!stopSpawner)
         {
-            GameObject newEnemy = Instantiate(enemyPrefab, new Vector3(Random.Range(-10, 10), 7, 0), Quaternion.identity);
+            GameObject newEnemy = Instantiate(enemyPrefab, new Vector3(Random.Range(-10, 10), 8, 0), Quaternion.identity);
             newEnemy.transform.parent = enemyContainer.transform;
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(spawnRate);
         }
     }
 

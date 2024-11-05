@@ -47,13 +47,22 @@ public class Player_sc : MonoBehaviour
     float fireRate = 0.5f;
     [SerializeField]
     float nextFire = 0.5f;
+
+    [SerializeField]
+    bool isTripleShotActive = false;
+
     void Fire()
     {
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time >= nextFire)
         {
-            // Instantiate(BulletPrefab, transform.position, Quaternion.identity);
-            Instantiate(BulletPrefab, transform.position + (new Vector3(0, 1, 0)), Quaternion.identity);
+            if (isTripleShotActive)
+            {
+                Instantiate(BulletPrefab, transform.position + (new Vector3(0.75f, -0.4f, 0)), Quaternion.identity);
+                Instantiate(BulletPrefab, transform.position + (new Vector3(-0.75f, -0.4f, 0)), Quaternion.identity);
+            }
+            Instantiate(BulletPrefab, transform.position + (new Vector3(0, 0.8f, 0)), Quaternion.identity);
+
             nextFire = Time.time + fireRate;
         }
     }
@@ -63,7 +72,7 @@ public class Player_sc : MonoBehaviour
 
     public void Damage()
     {
-        if (lives > 1)
+        if (lives > 0)
         {
             lives--;
             transform.position = new Vector3(0, 0, 0);

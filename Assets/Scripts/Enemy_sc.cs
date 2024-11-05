@@ -29,7 +29,7 @@ public class Enemy_sc : MonoBehaviour
         //     Destroy(gameObject);
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Bullet")
         {
@@ -48,6 +48,6 @@ public class Enemy_sc : MonoBehaviour
 
     void Respawn()
     {
-        transform.position = new Vector3(Random.Range(-10, 10), 7, 0);
+        transform.position = new Vector3(Random.Range(-10, 10), 8, 0);
     }
 }
