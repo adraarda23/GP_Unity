@@ -19,7 +19,7 @@ public class Enemy_sc : MonoBehaviour
 
     void Move()
     {
-        transform.Translate(Vector3.down * mvSpeed * Time.deltaTime);
+        transform.Translate(Vector2.down * mvSpeed * Time.deltaTime);
 
         if (transform.position.y < -6)
             // Respawn();
@@ -48,6 +48,6 @@ public class Enemy_sc : MonoBehaviour
 
     void Respawn()
     {
-        transform.position = new Vector3(Random.Range(-10, 10), 8, 0);
+        transform.position = new Vector2(Random.Range(-10, 10), 8);
     }
 }

@@ -13,7 +13,7 @@ public class Bullet_sc : MonoBehaviour
     float mvSpeed = 5;
     void Update()
     {
-        transform.Translate(Vector3.up * mvSpeed * Time.deltaTime);
+        transform.Translate(Vector2.up * mvSpeed * Time.deltaTime);
 
         if (transform.position.y > 8)
             Destroy(gameObject);

@@ -355,6 +355,7 @@
 "Assets/Scripts/Bullet_sc.cs"
 "Assets/Scripts/Enemy_sc.cs"
 "Assets/Scripts/Player_sc.cs"
+"Assets/Scripts/PowerUp_sc.cs"
 "Assets/Scripts/Spawner_sc.cs"
 -langversion:9.0
 /deterministic

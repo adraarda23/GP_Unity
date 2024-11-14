@@ -24,21 +24,21 @@ public class Player_sc : MonoBehaviour
         float yInput = Input.GetAxis("Vertical");
 
         if ((transform.position.x < -10) && (xInput < 0))
-            transform.Translate(new Vector3(0, yInput, 0) * mvSpeed * Time.deltaTime);
+            transform.Translate(new Vector2(0, yInput) * mvSpeed * Time.deltaTime);
         else if ((transform.position.x > 10) && (xInput > 0))
-            transform.Translate(new Vector3(0, yInput, 0) * mvSpeed * Time.deltaTime);
+            transform.Translate(new Vector2(0, yInput) * mvSpeed * Time.deltaTime);
         else if ((transform.position.y < -5) && (yInput < 0))
-            transform.Translate(new Vector3(xInput, 0, 0) * mvSpeed * Time.deltaTime);
+            transform.Translate(new Vector2(xInput, 0) * mvSpeed * Time.deltaTime);
         else if ((transform.position.y > 5) && (yInput > 0))
-            transform.Translate(new Vector3(xInput, 0, 0) * mvSpeed * Time.deltaTime);
+            transform.Translate(new Vector2(xInput, 0) * mvSpeed * Time.deltaTime);
         /*
         else if ((transform.position.x < -10) || (transform.position.x > 10))
-            transform.Translate(new Vector3(0, yInput, 0) * mvSpeed * Time.deltaTime);
+            transform.Translate(new Vector2(0, yInput, 0) * mvSpeed * Time.deltaTime);
         else if ((transform.position.y < -10) || (transform.position.y > 10))
-            transform.Translate(new Vector3(xInput, 0, 0) * mvSpeed * Time.deltaTime);
+            transform.Translate(new Vector2(xInput, 0, 0) * mvSpeed * Time.deltaTime);
         */
         else
-            transform.Translate(new Vector3(xInput, yInput, 0) * mvSpeed * Time.deltaTime);
+            transform.Translate(new Vector2(xInput, yInput) * mvSpeed * Time.deltaTime);
     }
 
     [SerializeField]
@@ -50,7 +50,8 @@ public class Player_sc : MonoBehaviour
 
     [SerializeField]
     bool isTripleShotActive = false;
-
+    [SerializeField]
+    bool isShieldActive = false;
     void Fire()
     {
 
@@ -72,17 +73,54 @@ public class Player_sc : MonoBehaviour
 
     public void Damage()
     {
-        if (lives > 0)
-        {
-            lives--;
-            transform.position = new Vector3(0, 0, 0);
-        }
+        if (isShieldActive)
+            isShieldActive = false;
         else
         {
-            Spawner_sc Spawner = GameObject.Find("Spawner").GetComponent<Spawner_sc>();;
-            Spawner.stopSpawnerFunc();
+            lives--;
 
-            Destroy(gameObject);
+            if (lives > 0)
+            {
+                transform.position = new Vector2(0, 0);
+            }
+            else
+            {
+                Spawner_sc Spawner = GameObject.Find("Spawner").GetComponent<Spawner_sc>(); ;
+                Spawner.stopSpawnerFunc();
+
+                Destroy(gameObject);
+            }
         }
+    }
+
+    public void activateBonus(string bonus)
+    {
+        if (bonus == "TripleShot")
+        {
+            isTripleShotActive = true;
+            StartCoroutine(deactivateBonus(bonus, 5));
+        }
+        else if (bonus == "Shield")
+        {
+            isShieldActive = true;
+            StartCoroutine(deactivateBonus(bonus, 10));
+        }
+        else if (bonus == "Speed")
+        {
+            mvSpeed = 15;
+            StartCoroutine(deactivateBonus(bonus, 3));
+        }
+    }
+
+    IEnumerator deactivateBonus(string bonus, int timeout = 5)
+    {
+        yield return new WaitForSeconds(timeout);
+
+        if (bonus == "TripleShot")
+            isTripleShotActive = false;
+        else if (bonus == "Shield")
+            isShieldActive = false;
+        else if (bonus == "Speed")
+            mvSpeed = 10;
     }
 }
