@@ -93,6 +93,8 @@ public class Player_sc : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    GameObject Shield;
     public void activateBonus(string bonus)
     {
         if (bonus == "TripleShot")
@@ -103,6 +105,7 @@ public class Player_sc : MonoBehaviour
         else if (bonus == "Shield")
         {
             isShieldActive = true;
+            Shield.SetActive(true);
             StartCoroutine(deactivateBonus(bonus, 10));
         }
         else if (bonus == "Speed")
@@ -119,7 +122,10 @@ public class Player_sc : MonoBehaviour
         if (bonus == "TripleShot")
             isTripleShotActive = false;
         else if (bonus == "Shield")
+        {
             isShieldActive = false;
+            Shield.SetActive(false);
+        }
         else if (bonus == "Speed")
             mvSpeed = 10;
     }
