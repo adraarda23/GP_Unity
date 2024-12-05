@@ -31,6 +31,11 @@ public class Spawner_sc : MonoBehaviour
             GameObject newEnemy = Instantiate(enemyPrefab, new Vector2(Random.Range(-10, 10), 8), Quaternion.identity);
             newEnemy.transform.parent = enemyContainer.transform;
 
+            int xMvSpeed = Random.Range(0, 3);
+            xMvSpeed *= (Random.Range(0, 2) == 0) ? 1 : -1;
+
+            newEnemy.GetComponent<Enemy_sc>().setXSpeed(xMvSpeed);
+
             yield return new WaitForSeconds(enemySpawnRate);
         }
     }

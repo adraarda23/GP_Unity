@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy_sc : MonoBehaviour
@@ -13,23 +14,29 @@ public class Enemy_sc : MonoBehaviour
             Debug.LogError("Player is NULL");
     }
 
-    [SerializeField] float mvSpeed = 1;
+    [SerializeField] float xMvSpeed = 0;
+    [SerializeField] float yMvSpeed = 1;
 
     void Update()
     {
-        Move();
+        MoveY();
+        MoveX();
     }
 
-    void Move()
+    void MoveY()
     {
-        transform.Translate(Vector2.down * mvSpeed * Time.deltaTime);
+        transform.Translate(Vector2.down * yMvSpeed * Time.deltaTime);
 
         if (transform.position.y < -6)
-            // Respawn();
             Destroy(gameObject);
+    }
 
-        // if (transform.position.y < 0)
-        //     Destroy(gameObject);
+    void MoveX()
+    {
+        if (transform.position.x < -10 || transform.position.x > 10)
+            xMvSpeed *= -1;
+
+        transform.Translate(Vector2.right * xMvSpeed * Time.deltaTime);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -40,7 +47,20 @@ public class Enemy_sc : MonoBehaviour
             // Respawn();
 
             if (Player != null)
-                Player.UpdateScore(100);
+                switch (xMvSpeed)
+                {
+                    case 0:
+                        Player.UpdateScore(10);
+                        break;
+                    case 1:
+                        Player.UpdateScore(20);
+                        break;
+                    case 2:
+                        Player.UpdateScore(30);
+                        break;
+                    default:
+                        break;
+                }
 
             Destroy(gameObject);
         }
@@ -56,5 +76,10 @@ public class Enemy_sc : MonoBehaviour
     void Respawn()
     {
         transform.position = new Vector2(Random.Range(-10, 10), 8);
+    }
+
+    public void setXSpeed(float speed)
+    {
+        xMvSpeed = speed;
     }
 }

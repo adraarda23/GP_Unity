@@ -132,7 +132,7 @@ public class Player_sc : MonoBehaviour
     }
 
     [SerializeField] int score = 0;
-    public void UpdateScore(int points = 100)
+    public void UpdateScore(int points = 10)
     {
         score += points;
         UI.UpdateScore(score);
