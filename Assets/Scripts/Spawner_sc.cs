@@ -58,4 +58,11 @@ public class Spawner_sc : MonoBehaviour
     {
         stopSpawner = true;
     }
+
+    public void startSpawnerFunc()
+    {
+        stopSpawner = false;
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnBonusRoutine());
+    }
 }

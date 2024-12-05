@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Enemy_sc : MonoBehaviour
 {
+    Player_sc Player;
     void Start()
     {
-        //
+        Player = GameObject.Find("Player").GetComponent<Player_sc>();
+
+        if (Player == null)
+            Debug.LogError("Player is NULL");
     }
 
-    [SerializeField]
-    float mvSpeed = 1;
+    [SerializeField] float mvSpeed = 1;
 
     void Update()
     {
@@ -35,6 +38,10 @@ public class Enemy_sc : MonoBehaviour
         {
             Destroy(other.gameObject);
             // Respawn();
+
+            if (Player != null)
+                Player.UpdateScore(100);
+
             Destroy(gameObject);
         }
         else if (other.tag == "Player")

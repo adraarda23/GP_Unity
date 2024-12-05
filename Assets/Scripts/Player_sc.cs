@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class Player_sc : MonoBehaviour
 {
+    UI_sc UI;
+
     void Start()
     {
         Debug.Log("Started!");
+
+        UI = GameObject.Find("Canvas").GetComponent<UI_sc>();
+
+        if (UI == null)
+            Debug.LogError("UI is NULL");
     }
 
     void Update()
@@ -41,17 +48,12 @@ public class Player_sc : MonoBehaviour
             transform.Translate(new Vector2(xInput, yInput) * mvSpeed * Time.deltaTime);
     }
 
-    [SerializeField]
-    GameObject BulletPrefab;
-    [SerializeField]
-    float fireRate = 0.5f;
-    [SerializeField]
-    float nextFire = 0.5f;
+    [SerializeField] GameObject BulletPrefab;
+    [SerializeField] float fireRate = 0.5f;
+    [SerializeField] float nextFire = 0.5f;
 
-    [SerializeField]
-    bool isTripleShotActive = false;
-    [SerializeField]
-    bool isShieldActive = false;
+    [SerializeField] bool isTripleShotActive = false;
+    [SerializeField] bool isShieldActive = false;
     void Fire()
     {
 
@@ -68,21 +70,21 @@ public class Player_sc : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    int lives = 3;
+    [SerializeField] int lives = 3;
 
     public void Damage()
     {
         if (isShieldActive)
-            isShieldActive = false;
+            StartCoroutine(deactivateBonus("Shield", 0));
         else
         {
             lives--;
 
+            if (UI != null)
+                UI.UpdateLives(lives);
+
             if (lives > 0)
-            {
                 transform.position = new Vector2(0, 0);
-            }
             else
             {
                 Spawner_sc Spawner = GameObject.Find("Spawner").GetComponent<Spawner_sc>(); ;
@@ -93,8 +95,7 @@ public class Player_sc : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    GameObject Shield;
+    [SerializeField] GameObject Shield;
     public void activateBonus(string bonus)
     {
         if (bonus == "TripleShot")
@@ -128,5 +129,12 @@ public class Player_sc : MonoBehaviour
         }
         else if (bonus == "Speed")
             mvSpeed = 10;
+    }
+
+    [SerializeField] int score = 0;
+    public void UpdateScore(int points = 100)
+    {
+        score += points;
+        UI.UpdateScore(score);
     }
 }
