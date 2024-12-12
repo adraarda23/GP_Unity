@@ -87,7 +87,7 @@ public class Player_sc : MonoBehaviour
                 transform.position = new Vector2(0, 0);
             else
             {
-                Spawner_sc Spawner = GameObject.Find("Spawner").GetComponent<Spawner_sc>(); ;
+                Spawner_sc Spawner = GameObject.Find("Spawner").GetComponent<Spawner_sc>();
                 Spawner.stopSpawnerFunc();
 
                 Destroy(gameObject);

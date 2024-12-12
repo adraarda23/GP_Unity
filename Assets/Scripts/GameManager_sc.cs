@@ -11,13 +11,6 @@ public class GameManager_sc : MonoBehaviour
 
     void Start()
     {
-        // UI = GameObject.Find("Canvas").GetComponent<UI_sc>();
-        // Spawner = GameObject.Find("Spawner").GetComponent<Spawner_sc>();
-
-        // if (UI == null)
-        //     Debug.LogError("UI is NULL");
-        // if (Spawner == null)
-        //     Debug.LogError("Spawner is NULL");
     }
 
     void Update()
