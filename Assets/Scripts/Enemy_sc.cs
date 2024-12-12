@@ -17,7 +17,6 @@ public class Enemy_sc : MonoBehaviour
 
 		if(anim == null)
 			Debug.LogError("anim is NULL");
-
     }
 
     [SerializeField] float xMvSpeed = 0;
