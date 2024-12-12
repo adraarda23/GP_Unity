@@ -6,12 +6,16 @@ public class Spawner_sc : MonoBehaviour
 {
     void Start()
     {
-        StartCoroutine(SpawnEnemyRoutine());
-        StartCoroutine(SpawnBonusRoutine());
     }
 
     void Update()
     {
+    }
+
+    public void Spawn()
+    {
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnBonusRoutine());
     }
 
     [SerializeField]
@@ -26,6 +30,8 @@ public class Spawner_sc : MonoBehaviour
     float enemySpawnRate = 2;
     IEnumerator SpawnEnemyRoutine()
     {
+        yield return new WaitForSeconds(3);
+
         while (!stopSpawner)
         {
             GameObject newEnemy = Instantiate(enemyPrefab, new Vector2(Random.Range(-10, 10), 8), Quaternion.identity);
@@ -47,6 +53,8 @@ public class Spawner_sc : MonoBehaviour
     float bonusSpawnRate = 5;
     IEnumerator SpawnBonusRoutine()
     {
+        yield return new WaitForSeconds(5);
+
         while (!stopSpawner)
         {
             int bonusType = Random.Range(0, 3);

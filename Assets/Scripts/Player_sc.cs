@@ -56,7 +56,6 @@ public class Player_sc : MonoBehaviour
     [SerializeField] bool isShieldActive = false;
     void Fire()
     {
-
         if (Input.GetKeyDown(KeyCode.Space) && Time.time >= nextFire)
         {
             if (isTripleShotActive)
@@ -79,6 +78,11 @@ public class Player_sc : MonoBehaviour
         else
         {
             lives--;
+
+            if (lives < 3)
+                transform.GetChild(2).gameObject.SetActive(true); // Right Engine
+            if (lives < 2)
+                transform.GetChild(3).gameObject.SetActive(true); // Left Engine
 
             if (UI != null)
                 UI.UpdateLives(lives);

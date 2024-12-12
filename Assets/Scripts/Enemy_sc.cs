@@ -6,12 +6,18 @@ using UnityEngine;
 public class Enemy_sc : MonoBehaviour
 {
     Player_sc Player;
+    Animator anim;
     void Start()
     {
         Player = GameObject.Find("Player").GetComponent<Player_sc>();
+        anim = GetComponent<Animator>();
 
         if (Player == null)
             Debug.LogError("Player is NULL");
+
+		if(anim == null)
+			Debug.LogError("anim is NULL");
+
     }
 
     [SerializeField] float xMvSpeed = 0;
@@ -46,30 +52,37 @@ public class Enemy_sc : MonoBehaviour
             Destroy(other.gameObject);
             // Respawn();
 
-            if (Player != null)
-                switch (xMvSpeed)
-                {
-                    case 0:
-                        Player.UpdateScore(10);
-                        break;
-                    case 1:
-                        Player.UpdateScore(20);
-                        break;
-                    case 2:
-                        Player.UpdateScore(30);
-                        break;
-                    default:
-                        break;
-                }
+            switch (xMvSpeed)
+            {
+                case 0:
+                    Player.UpdateScore(10);
+                    break;
+                case -1:
+                case 1:
+                    Player.UpdateScore(20);
+                    break;
+                case -2:
+                case 2:
+                    Player.UpdateScore(30);
+                    break;
+                default:
+                    break;
+            }
 
-            Destroy(gameObject);
+			anim.SetTrigger("OnEnemyDeath");
+            xMvSpeed = 0;
+            yMvSpeed = 0;
+            Destroy(gameObject, 2.5f);
         }
         else if (other.tag == "Player")
         {
             Player_sc Player = other.GetComponent<Player_sc>();
             Player.Damage();
-            // Respawn();
-            Destroy(gameObject);
+
+			anim.SetTrigger("OnEnemyDeath");
+            xMvSpeed = 0;
+            yMvSpeed = 0;
+            Destroy(gameObject, 2.5f);
         }
     }
 
